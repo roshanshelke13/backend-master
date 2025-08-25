@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true }, 
+    title: { type: String, required: true, unique: true }, 
     description:{
         type:String,
         required:true
     },
-    date:{type:Date,default:Date.now},
+    detailedDescription:{
+        type:String,
+        required:true
+    },
+    date:{type:Date},
+    createdAt:{type:Date,default:Date.now},
     location:{type:String,required:true},
+    mapLink:{type:String},
     studentsEnrolled:[
         {
             type:mongoose.Schema.Types.ObjectId,
@@ -20,6 +26,8 @@ const eventSchema = new mongoose.Schema({
             ref:"Student",
         }
     ],
+    time:{type:String,required:true},
+    type:{type:String,required:true},
     createdBy:{type:mongoose.Schema.Types.ObjectId,ref:"Admin"},
 });
 

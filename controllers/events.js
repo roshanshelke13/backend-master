@@ -6,10 +6,10 @@ const Student = require("../models/user");
 // Create Event (Admin only)
 exports.createEvent = async (req, res) => {
   try {
-    const { name, description, location } = req.body;
-    const userId = req.user._id || req.user.id;  // 👈 yahan change
+    const { title, description, location,date,detailedDescription,mapLink,type,createdBy} = req.body;
+    
 
-    if (!name || !description || !location) {
+    if (!title || !description || !location || !date || !detailedDescription || !mapLink || !type || !createdBy) {
       return res.status(400).json({
         success: false,
         message: "All fields are required"
@@ -17,14 +17,18 @@ exports.createEvent = async (req, res) => {
     }
 
     const event = await Event.create({
-      name,
+      title,
       description,
       location,
-      createdBy: userId
+      createdBy,
+      date,
+      detailedDescription,
+      mapLink,
+      type,
     });
 
     await Admin.findByIdAndUpdate(
-      userId,
+      createdBy,
       { $push: { createdEventId: event._id } },
       { new: true }
     );
