@@ -26,7 +26,7 @@ const eventSchema = new mongoose.Schema({
             ref:"Student",
         }
     ],
-    time:{type:String,required:true},
+    time:{type:String},
     type:{type:String,required:true},
     createdBy:{type:mongoose.Schema.Types.ObjectId,ref:"Admin"},
 });
